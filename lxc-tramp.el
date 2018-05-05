@@ -71,6 +71,14 @@
   "Method to connect lxc containers.")
 
 (defun lxc-tramp--process-lines (program &optional delete-trailing-ws &rest args)
+  "A version of `process-lines' that use `process-file'.
+
+Contrary to `process-lines', this function uses `process-file'
+instead of `call-process'.  PROGRAM is the program to execute,
+see the documentation of `process-lines' for further information.
+If DELETE-TRAILING-WS is non-nil trailing whitespace and trailing
+newlines will be removed from output.  ARGS are passed to PROGRAM
+similarly to `process-lines'"
   (with-temp-buffer
     (when (zerop (apply 'process-file program nil t nil args))
       (when delete-trailing-ws
@@ -87,12 +95,15 @@
         (nreverse lines)))))
 
 (defun lxc-tramp--running-containers (&optional ignored)
+  "List running containers.
+
+TRAMP call this function with a filename which is IGNORED."
   (lxc-tramp--process-lines lxc-tramp-lxc-ls-executable t "--running"))
 
 (defun lxc-tramp--parse-running-containers (&optional ignored)
   "Return a list of (user host) tuples.
 
-TRAMP calls this function with a filename which is IGNORED. The
+TRAMP calls this function with a filename which is IGNORED.  The
 user is an empty string because the lxc TRAMP method uses bash
 to connect to the default user containers."
   (cl-loop for name in (lxc-tramp--running-containers)
