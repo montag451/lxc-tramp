@@ -98,7 +98,7 @@ similarly to `process-lines'"
   "List running containers.
 
 TRAMP call this function with a filename which is IGNORED."
-  (lxc-tramp--process-lines lxc-tramp-lxc-ls-executable t "--running"))
+  (lxc-tramp--process-lines lxc-tramp-lxc-ls-executable t "--running" "-1"))
 
 (defun lxc-tramp--parse-running-containers (&optional ignored)
   "Return a list of (user host) tuples.
