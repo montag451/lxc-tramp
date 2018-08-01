@@ -53,13 +53,8 @@
   :link '(url-link :tag "GitHub" "https://github.com/montag451/lxc-tramp")
   :link '(emacs-commentary-link :tag "Commentary" "lxc-tramp"))
 
-(defcustom lxc-tramp-lxc-attach-executable "lxc-attach"
-  "Path to lxc-attach executable."
-  :type 'string
-  :group 'lxc-tramp)
-
-(defcustom lxc-tramp-lxc-ls-executable "lxc-ls"
-  "Path to lxc-ls executable."
+(defcustom lxc-tramp-lxc-executable "lxc"
+  "Path to lxc executable."
   :type 'string
   :group 'lxc-tramp)
 
@@ -98,7 +93,7 @@ similarly to `process-lines'"
   "List running containers.
 
 TRAMP call this function with a filename which is IGNORED."
-  (lxc-tramp--process-lines lxc-tramp-lxc-ls-executable t "--running" "-1"))
+  (lxc-tramp--process-lines lxc-tramp-lxc-executable t "list" "--format=csv" "--columns=n"))
 
 (defun lxc-tramp--parse-running-containers (&optional ignored)
   "Return a list of (user host) tuples.
@@ -114,8 +109,8 @@ to connect to the default user containers."
   "Add lxc tramp method."
   (add-to-list 'tramp-methods
                `(,lxc-tramp-method
-                 (tramp-login-program ,lxc-tramp-lxc-attach-executable)
-                 (tramp-login-args (("-n") ("%h")))
+                 (tramp-login-program ,lxc-tramp-lxc-executable)
+                 (tramp-login-args (("exec") ("%h") ("--") ("sh")))
                  (tramp-remote-shell "/bin/sh")
                  (tramp-remote-shell-args ("-i" "-c")))))
 
