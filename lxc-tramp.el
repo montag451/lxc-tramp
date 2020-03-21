@@ -115,7 +115,9 @@ to connect to the default user containers."
   (add-to-list 'tramp-methods
                `(,lxc-tramp-method
                  (tramp-login-program ,lxc-tramp-lxc-attach-executable)
-                 (tramp-login-args (("-n") ("%h")))
+                 (tramp-login-args (("--clear-env")
+                                    ("-v") ("HOME=/root")
+                                    ("-n") ("%h")))
                  (tramp-remote-shell "/bin/sh")
                  (tramp-remote-shell-args ("-i" "-c")))))
 
