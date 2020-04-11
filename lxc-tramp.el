@@ -117,7 +117,8 @@ to connect to the default user containers."
                  (tramp-login-program ,lxc-tramp-lxc-attach-executable)
                  (tramp-login-args (("--clear-env")
                                     ("-v") ("HOME=/root")
-                                    ("-n") ("%h")))
+                                    ("-n") ("%h")
+                                    ("--") ("su - %u")))
                  (tramp-remote-shell "/bin/sh")
                  (tramp-remote-shell-args ("-i" "-c")))))
 
@@ -125,7 +126,8 @@ to connect to the default user containers."
 (eval-after-load 'tramp
   '(progn
      (lxc-tramp-add-method)
-     (tramp-set-completion-function lxc-tramp-method lxc-tramp-completion-function-alist)))
+     (tramp-set-completion-function
+      lxc-tramp-method lxc-tramp-completion-function-alist)))
 
 (provide 'lxc-tramp)
 
