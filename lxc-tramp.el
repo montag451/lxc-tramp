@@ -111,7 +111,7 @@ similarly to `process-lines'"
                  (tramp-login-args (("--clear-env")
                                     ("-v") ("HOME=/root")
                                     ("-n") ("%h")
-                                    ("--") ("su - %u")))
+                                    ("--" "su" "-" "%u")))
                  (tramp-remote-shell "/bin/sh")
                  (tramp-remote-shell-args ("-i" "-c")))))
 
