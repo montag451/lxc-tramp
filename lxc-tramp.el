@@ -53,10 +53,20 @@
   :link '(url-link :tag "GitHub" "https://github.com/montag451/lxc-tramp")
   :link '(emacs-commentary-link :tag "Commentary" "lxc-tramp"))
 
+(defconst lxc-tramp-method "lxc"
+  "Method to connect lxc containers.")
+
+(defun lxc-tramp--update-method ()
+  (when-let ((params (alist-get lxc-tramp-method tramp-methods nil nil 'equal)))
+    (setf (alist-get 'tramp-login-program params) lxc-tramp-lxc-attach-executable)))
+
 (defcustom lxc-tramp-lxc-attach-executable "lxc-attach"
   "Path to lxc-attach executable."
   :type 'string
-  :group 'lxc-tramp)
+  :group 'lxc-tramp
+  :set (lambda (sym value)
+         (set-default-toplevel-value sym value)
+         (lxc-tramp--update-method)))
 
 (defcustom lxc-tramp-lxc-ls-executable "lxc-ls"
   "Path to lxc-ls executable."
@@ -66,9 +76,6 @@
 (defconst lxc-tramp-completion-function-alist
   '((lxc-tramp--parse-running-containers  ""))
   "Default list of (FUNCTION FILE) pairs to be examined for lxc method.")
-
-(defconst lxc-tramp-method "lxc"
-  "Method to connect lxc containers.")
 
 (defun lxc-tramp--process-lines (program &optional delete-trailing-ws &rest args)
   "A version of `process-lines' that use `process-file'.
