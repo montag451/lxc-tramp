@@ -58,7 +58,7 @@
 
 (defun lxc-tramp--update-method ()
   (when-let ((params (alist-get lxc-tramp-method tramp-methods nil nil 'equal)))
-    (setf (alist-get 'tramp-login-program params) lxc-tramp-lxc-attach-executable)))
+    (setf (alist-get 'tramp-login-program params) (list lxc-tramp-lxc-attach-executable))))
 
 (defcustom lxc-tramp-lxc-attach-executable "lxc-attach"
   "Path to lxc-attach executable."
