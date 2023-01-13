@@ -1,6 +1,6 @@
 ;;; lxc-tramp.el --- TRAMP integration for LXC containers  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2018 montag451
+;; Copyright (C) 2018-2023 montag451
 
 ;; Author: montag451
 ;; URL: https://github.com/montag451/lxc-tramp
