@@ -117,7 +117,7 @@ similarly to `process-lines'"
                  (tramp-login-program ,lxc-tramp-lxc-attach-executable)
                  (tramp-login-args (("--clear-env")
                                     ("-v" "HOME=/root")
-                                    ("-n" "%h")
+                                    ("-n") ("%h")
                                     ("--" "su" "-" "%u")))
                  (tramp-remote-shell "/bin/sh")
                  (tramp-remote-shell-args ("-i" "-c")))))
