@@ -5,7 +5,7 @@
 ;; Author: montag451
 ;; URL: https://github.com/montag451/lxc-tramp
 ;; Keywords: lxc, convenience
-;; Version: 1.1.0
+;; Version: 1.1.1
 ;; Package-Requires: ((emacs "24") (cl-lib "0.6"))
 
 ;; This file is NOT part of GNU Emacs.
